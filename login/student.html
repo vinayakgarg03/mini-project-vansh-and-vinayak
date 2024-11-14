@@ -1,0 +1,186 @@
+User
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: lightcyan;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .attendance-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .attendance-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #fff; /* Set background to white */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto;
+            position: relative;
+            border: 8px solid #3498db; /* Set border color to default (blue) */
+        }
+
+        .attendance-percentage {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><center><i>Student Attendance Page</i></center></h1>
+
+    <div id="studentName"></div>
+
+    <div class="attendance-info">
+        <div class="attendance-circle" id="attendanceCircle">
+            <span id="attendancePercentage">0%</span>
+        </div>
+        <p>Attendance Percentage</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Attendance</th>
+            </tr>
+        </thead>
+        <tbody id="studentAttendanceTable">
+            <!-- Student attendance will be displayed here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to calculate attendance percentage
+        function calculateAttendancePercentage(attendanceData) {
+            var totalDays = attendanceData.length;
+            var presentDays = attendanceData.filter(record => record.status === 'Present').length;
+            var percentage = (presentDays / totalDays) * 100;
+            return percentage.toFixed(2);
+        }
+
+        // Function to parse URL parameters
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Get the student name from the URL parameter
+        var studentName = getParameterByName('student');
+
+        // Display the student name
+        var studentNameElement = document.getElementById('studentName');
+        studentNameElement.innerHTML = '<h2>' + studentName + "'s Attendance</h2>";
+
+        // Sample attendance data (replace with actual data)
+        var attendanceData = [
+            { date: '2023-12-01', status: 'Present' },
+            { date: '2023-12-02', status: 'Absent' },
+            { date: '2023-12-04', status: 'Present' },
+            { date: '2023-12-03', status: 'Present' },
+            // Add more attendance records as needed
+        ];
+
+        // Display attendance data
+        var tableBody = document.getElementById('studentAttendanceTable');
+        attendanceData.forEach(function (record) {
+            var newRow = tableBody.insertRow(tableBody.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+
+            // Set the cell values
+            cell1.innerHTML = record.date;
+            cell2.innerHTML = record.status;
+        });
+
+        // Calculate and display attendance percentage
+        var attendancePercentageElement = document.getElementById('attendancePercentage');
+        var attendanceCircleElement = document.getElementById('attendanceCircle');
+
+        var percentage = calculateAttendancePercentage(attendanceData);
+        attendancePercentageElement.textContent = percentage + '%';
+
+        // Set the color of the attendance circle based on the percentage
+        if (parseFloat(percentage) >= 75) {
+            attendanceCircleElement.style.border = '8px solid #2ecc71'; // Green
+        } else {
+            attendanceCircleElement.style.border = '8px solid #e74c3c'; // Red
+        }
+    </script>
+    <!-- Modify this part to fetch attendance data from URL parameters -->
+<script>
+    // Function to parse URL parameters
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Get attendance data from URL parameter
+    var encodedData = getParameterByName('attendanceData');
+    var attendanceData = JSON.parse(decodeURIComponent(encodedData));
+
+    // Rest of your existing code
+    // ...
+
+    // Sample attendance data (replace with actual data)
+    // var attendanceData = [
+    //     { student: 'John Doe', date: '2023-12-01', status: 'Present' },
+    //     { student: 'Jane Smith', date: '2023-12-02', status: 'Absent' },
+    //     { student: 'Robert Johnson', date: '2023-12-03', status: 'Present' },
+    //     // Add more attendance records as needed
+    // ];
+</script>
+
+
+</body>
+
+</html>

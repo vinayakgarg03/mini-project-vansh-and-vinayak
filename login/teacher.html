@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Record</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color:lightcyan;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: pink;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        form {
+            margin-top: 20px;
+            background-color: rgb(138, 193, 231);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="date"], input[type="submit"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkbox-container label {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #3498db;
+            border-radius: 3px;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        input[type="checkbox"]:checked {
+            background-color: #3498db;
+            border: 2px solid #3498db;
+            color: #fff;
+        }
+
+        input[type="checkbox"]:checked::before {
+            content: '\2713'; /* Unicode character for a tick (check mark) */
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #2ecc71;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Add this code at the bottom of your existing HTML -->
+<div style="text-align: right; margin-top: 20px;">
+    <a style="text-decoration:none"href="login.html">Go back</a>
+</div>
+
+    <h1 style="color:darkblue"><center><i>Student Attendance Record</i></center></h1>
+
+    <form id="attendanceForm">
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label>Select Students:</label>
+        <div id="studentCheckboxes" class="checkbox-container">
+            <label>
+                <input type="checkbox" id="vanshsharmabox" value="Vansh sharma">
+                Vansh sharma
+            </label>
+
+            <label>
+                <input type="checkbox" id="janeSmithCheckbox" value="Vinayak garg">
+                Vinayak garg
+            </label>
+
+            <label>
+                <input type="checkbox" id="robertJohnsonCheckbox" value="Shivam singh">
+                Shivam singh
+            </label>
+            <label>
+                <input type="checkbox" id="vanshsharmabox" value="Tanisha garg">
+                Tanisha garg
+            </label>
+
+            <label>
+                <input type="checkbox" id="janeSmithCheckbox" value="Tushar sharma">
+                Tushar sharma
+            </label>
+
+            <label>
+                <input type="checkbox" id="robertJohnsonCheckbox" value="Radha singh">
+                Radha singh
+            </label>
+            <label>
+                <input type="checkbox" id="vanshsharmabox" value="Rani pawnar">
+                Rani panwar
+            </label>
+
+            <label>
+                <input type="checkbox" id="janeSmithCheckbox" value="Vinayak ">
+                Vinayak
+            </label>
+
+            <label>
+                <input type="checkbox" id="robertJohnsonCheckbox" value="Sahil tyagi">
+                Sahil tyagi
+            </label>
+            <!-- Add more checkboxes as needed -->
+        </div>
+
+        <input type="submit" value="Mark Attendance">
+    </form>
+
+    <table id="attendanceTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Attendance records will be displayed here -->
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('attendanceForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get form values
+            var date = document.getElementById('date').value;
+
+            // Add a new row for each checked checkbox
+            var table = document.getElementById('attendanceTable').getElementsByTagName('tbody')[0];
+            var checkboxes = document.querySelectorAll('#studentCheckboxes input[type="checkbox"]:checked');
+
+            checkboxes.forEach(function (checkbox) {
+                var newRow = table.insertRow(table.rows.length);
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+
+                // Set the cell values
+                cell1.innerHTML = checkbox.value;
+                cell2.innerHTML = date;
+            });
+
+            // Clear the form fields
+            document.getElementById('date').value = '';
+
+            // Uncheck all checkboxes
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+        });
+    </script>
+</body>
+
+</html>

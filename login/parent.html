@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: lightcyan;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgb(138, 193, 231);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            margin-bottom: 15px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #2ecc71;
+            color: red;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+
+        #childInfo {
+            display: none;
+            margin-top: 20px;
+            background-color: lightblue;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        #infoTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        #infoTable,
+        th,
+        td {
+            border: 1px solid blue;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: blue;
+        }
+
+        .edit-button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .edit-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><i>Parent Portal</i></h1>
+
+    <form id="editForm" style="display: none;">
+        <label for="editName">Name:</label>
+        <input type="text" id="editName" name="editName">
+
+        <label for="editClass">Class:</label>
+        <input type="text" id="editClass" name="editClass">
+
+        <label for="editRollNumber">Roll Number:</label>
+        <input type="text" id="editRollNumber" name="editRollNumber">
+
+        <label for="editDob">Date of Birth:</label>
+        <input type="text" id="editDob" name="editDob">
+
+        <label for="editAddress">Address:</label>
+        <input type="text" id="editAddress" name="editAddress">
+
+        <label for="editContactNumber">Contact Number:</label>
+        <input type="text" id="editContactNumber" name="editContactNumber">
+
+        <input type="submit" value="Save Changes">
+    </form>
+
+    <div id="childInfo">
+        <h2>Student Information</h2>
+        <table id="infoTable">
+            <tbody id="infoBody">
+                <!-- Student information will be displayed here -->
+            </tbody>
+        </table>
+
+        <button class="edit-button" onclick="toggleEditMode()">Edit Information</button>
+    </div>
+
+    <script>
+        var studentInfoData = {
+            name: 'Vansh sharma',
+            class: 'B.Tech',
+            rollNumber: '2200290110190',
+            dob: '2004-01-30',
+            address: 'Garg Enclave, Baghpat',
+            contactNumber: '8272873290'
+        };
+
+        // Display student information
+        var infoTable = document.getElementById('infoBody');
+
+        Object.entries(studentInfoData).forEach(function ([key, value]) {
+            var newRow = infoTable.insertRow(infoTable.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+
+            cell1.innerHTML = key;
+            cell2.innerHTML = value;
+        });
+
+        function toggleEditMode() {
+            var editForm = document.getElementById('editForm');
+            var childInfo = document.getElementById('childInfo');
+
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+            childInfo.style.display = childInfo.style.display === 'none' ? 'block' : 'none';
+
+            // Fill the form fields with current data
+            document.getElementById('editName').value = studentInfoData.name;
+            document.getElementById('editClass').value = studentInfoData.class;
+            document.getElementById('editRollNumber').value = studentInfoData.rollNumber;
+            document.getElementById('editDob').value = studentInfoData.dob;
+            document.getElementById('editAddress').value = studentInfoData.address;
+            document.getElementById('editContactNumber').value = studentInfoData.contactNumber;
+        }
+    </script>
+</body>
+
+</html>
+
+</head>
+
+<body>
+    <h1><i>Parent Portal</i></h1>
+
+    <div id="childInfo">
+        <h2>Student Information</h2>
+        <table id="infoTable">
+            <tbody id="infoBody">
+                <!-- Student information will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Sample student information data (replace with actual data)
+        var studentInfoData = {
+            name: 'Vansh sharma',
+            class: 'B.Tech',
+            rollNumber: '2200290110190',
+            dob: '2004-01-30',
+            address: 'Garg Enclave,Baghpat',
+            contactNumber: '8272873290'
+        };
+
+        // Display student information
+        var infoTable = document.getElementById('infoBody');
+
+        Object.entries(studentInfoData).forEach(function ([key, value]) {
+            var newRow = infoTable.insertRow(infoTable.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+
+            // Set the cell values
+            cell1.innerHTML = key;
+            cell2.innerHTML = value;
+        });
+
+        // Display the student information section
+        document.getElementById('childInfo').style.display = 'block';
+    </script>
+</body>
+
+</html>
